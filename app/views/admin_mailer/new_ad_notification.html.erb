@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Salut l'admin !</h1>
+    <p>
+      Une nouvelle annonce intitulée <%= @post.title %> vient d'être publiée par l'utilisateur <%= @post.user.first_name %> <%= @post.user.last_name %>.
+    </p>
+    <p>
+      On t'invite à te rendre sur ton dashboard admin pour en prendre connaissance et l'approuver ou la rejeter.
+    </p>
+	<p>A plus !</p>
+  </body>
+</html>

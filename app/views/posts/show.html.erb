@@ -1,0 +1,71 @@
+<body>
+
+	<div class="left bg-primary pattern-overlay-4">
+		<div class="container">
+			<div class="row all-text-white">
+				<div class="col-md-12 align-self-center">
+					<h1 class="font-weight-bold display-4 display-md-1 mb-2 mb-md-n4 mt-9"><%=@post.category.name%></h1>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<section>
+		<div class="container h-100">
+			<div class="row">
+				<div class="col-md-12 col-lg-6 align-self-center ">
+					<div class="title text-left">
+						<h2><span class="text-primary"> <%=@post.title%> </span></h2>
+						<p class="mb-0">Description : <%=@post.description%> </p>
+
+						<div class="list-group-inline list-group-number list-unstyled mt-4">
+						 <p> Nombre de Paticipants: <%= @participant.count %></p>
+						Participant(s):
+						<%@participant.each do |participant|%>
+							<% if user_signed_in? %>
+								<%= link_to participant.user.first_name, user_path(participant.user.id)%> /
+							<% else %>
+								<%= link_to participant.user.first_name, new_user_session_path %> /
+							<%end%>
+						<%end%>
+						<p class="mb-0">Date : <%=@post.datetime%> </p>
+						<% if user_signed_in? %>
+
+						<p class="mb-0">Auteur : <%= link_to "#{@post.user.first_name} " "#{@post.user.last_name}", user_path(@post.user.id)%> </p>
+						<% else %>
+						<p class="mb-0">Auteur : <%= link_to "#{@post.user.first_name} " "#{@post.user.last_name}", new_user_session_path %> </p>
+
+						<%end%>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-md-10 col-lg-6 mx-md-auto align-self-center ">
+					<img class="card-img" src="<%=@post.category.picture_url%>">
+				<div class="position-absolute left-0 bottom-0 ml-4 ml-md-n2 mb-3">
+				</div>
+				</div>
+			</div>
+			<%= link_to "Revenir à l'accueil", root_path, class: 'btn btn-info btn-sm', style: 'margin-right: 10px' %>
+			<% if user_signed_in? %>
+				<% if current_user.answered_posts.all.include?(@post) %>
+					<%= link_to "Annuler mon inscription", post_participation_path(@post), method: :delete, data: { confirm: 'Êtes vous sûrs? ' }, class:'btn btn-danger btn-sm' %>			
+				<% else %>
+					<%= link_to "Apporter son aide", new_post_participation_path(@post), class: 'btn btn-outline-primary btn-sm' %>
+				<%end%>
+			<% else %>
+				<%= link_to "Apporter son aide", new_user_session_path, class: 'btn btn-outline-primary btn-sm' %>
+			<%end%>
+			<%if current_user == #{@post.user.id}%>
+				<%= link_to "Mon espace personnel", user_path(:id => current_user.id), class: 'btn btn-outline-danger btn-sm', style: 'margin-right: 10px' %>
+			<%end%>
+			
+			<% if current_user && @post.user == current_user %>
+				<div>
+					<p><%= link_to "Modifier", edit_post_path(@post.id), :class => "text-info pull-right" %></p><br>
+					<p><%= link_to "Supprimer", @post, :confirm => "Ce post sera supprimé définitivement!", :method => :delete, :class => "text-danger pull-right" %></p>
+				</div>
+			<%end%>
+		</section>
+</body>
+

@@ -1,0 +1,44 @@
+<section class = "p-4 height-700 parallax-bg" style="background-image: url()">
+    
+    <div class="form-control-lg text-center w-100 vh-100">
+    <h1 class="text-primary">Créer ton annonce</h1> 
+        <div class= "d-flex flex-column">
+            <div class="w-100 p-4 h-75" >
+                <div class="form mx-auto">
+                    <%= form_for @post do |form| %>
+                        <div class=" d-flex flex-row justify-content-around bg-dark-grad text-light w-75 mx-auto" > 
+                            <div class="field">
+                                <%= form.label :Categorie, :class => "mb-0 mt-2" %></br>
+                                <%= form.collection_select :category_id, Category.order(:name), :id, :name, :class => "" %>
+                            </div>
+                            <div class="form-group mb-3">
+                                <%= form.label :date, :class => "mb-0 mt-2 text-center"  %></br>
+                                <%= form.date_field :datetime, autofocus: true, autocomplete: "datetime " %>
+                            </div>  
+                            <div class="field">
+                                <%= form.label :Ville, :class => "mb-0 mt-2 text-center"  %></br>
+                                <%= form.collection_select :city_id, City.order(:city_name), :id, :city_name%>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="field mb-3 ">
+                                <%= form.label :titre, :class => "mb-0 mt-2"  %></br>
+                                <%= form.text_field :title, :class => "form-control form-control-md text-center w-75 mx-auto"%>
+                            </div>
+                            
+                            
+                            <div class="field">
+                                <%= form.label :description, :class => "mb-0 mt-2"  %></br>
+                                <%= form.text_area :description, :class => "form-control form-control-lg text-center w-75 mx-auto" %>
+                            </div>
+                        </div>
+                                                        
+                        <div class="actions ml-4 mt-4">
+                            <%= form.submit "Poster", :class => "btn btn-primary"%>
+                        </div>
+                    <% end %>
+                </div>
+            </div> 
+        </div>
+        
+</section>

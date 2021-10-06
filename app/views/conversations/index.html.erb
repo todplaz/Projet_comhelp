@@ -1,0 +1,41 @@
+<div class = "col-md-2 d-flex flex-column mt-2">
+    <%= link_to "Revenir à l'accueil", root_path, class: 'btn btn-info btn-sm', style: 'margin-right: 10px' %>
+</div>
+<div class="container ml-9">
+    <div class="row">
+        <div class="col-md-12 col-lg-5">
+
+            <div class="card d-flex flex-column mt-6">
+                <div class="card-body bg-primary text-white mailbox-widget pb-0">
+                    <h2 class="text-white pb-3">Bienvenue <%= current_user.first_name %> dans ta messagerie </h2>
+                </div>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade active show" id="inbox" aria-labelledby="inbox-tab" role="tabpanel">
+                        <div>
+                            <!-- Mail list-->
+                            <div class="table-responsive">
+                                <table class="table email-table no-wrap table-hover v-middle mb-0 font-14">
+                                  <tbody>
+                                    <% @conversations.each do |conversation| %>
+                                      <li class="list-group-item" data-conversation-id="<%= conversation.id %>">
+                                        <%= conversation.recipient(current_user).first_name %> <%= conversation.recipient(current_user).last_name %>                       
+                                        <%= link_to "voir plus", conversation_messages_path(conversation) %>
+                                        <% if !conversation.unread_message_count(current_user).zero? %>
+                                            <span class="badge"><%= conversation.unread_message_count(current_user) %></span>
+                                        <% end %>
+                                      </li>
+                                    <% end %>  
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "col-md-10 col-lg-6 d-flex flex-column mt-1">
+            <%= image_tag("https://comhelp.s3.eu-west-3.amazonaws.com/comhelp/conversation/conversation.jpg") %>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,45 @@
+
+<div class="content mt-5">
+<h4 class="text-center text-primary text"> Envoyer un message à <%= @conversation.recipient(current_user).first_name %> <%= @conversation.recipient(current_user).last_name %></h4>                       
+
+  <div class="container ml-9">
+  	<div class="card mx-auto w-50 h-100">
+			<div class="row-12">
+			
+				<div class="col-12 col-lg-12 col-xl-12">
+					
+					<div class="position-relative">
+						<div class="chat-messages p-4">
+              <div id="messages">
+                <% @conversation.messages.each do |message| %>
+                  <% if message.body %>
+                    <div class="media">
+                      <div class="media-body">
+                        <div class="font-weight-bold mb-2"><%= message.user.first_name %> </div>
+                        <p><%= message.body %></p>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+          </div>
+         
+
+					<div class>
+							
+                <%= form_for [@conversation, @message] do |f| %>
+                  <div class="form-group col-md-12 col-lg-12">
+                    <%= f.text_area :body, autofocus: true, placeholder: "Votre message", class: "form-control", rows: 5 %>
+                  </div>
+
+                  <%= f.submit "Envoyer", class: "btn btn-primary pull-right" %>
+                  <p><%= link_to "Revenir sur la messagerie", conversations_index_path, :class => "btn btn-outline-info pull-right"  %></p>
+
+                <% end %>
+               
+					</div>
+				</div>
+      </div>
+    </div>
+	</div>
+</div>

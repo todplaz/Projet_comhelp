@@ -1,0 +1,163 @@
+<section class="p-0 height-700 parallax-bg" style="background-image: url(https://comhelp.s3.eu-west-3.amazonaws.com/comhelp/Front/Help.jpg)">
+        <div class="container h-100">
+          <div class="row justify-content-between align-items-center h-100">
+            <div class="col-md-8 mb-7">
+                <h4 class="text-primary"> Rapprochons-nous et retrouvons-nous !</h4>
+                <h1 class="display-6 font-weight-bold text-dark">ComHelp</h1>
+                <div class="container pl-0">
+                  <% if user_signed_in? %>
+                    <%= link_to "Poster votre annonce", new_post_path,  :class => "btn btn-primary" %>
+                  <% else %>
+                    <%= link_to "Connectez-vous", new_user_session_path, class: 'btn btn-dark  ml-2 mr-0 text-light'%>
+                  <%end%>
+                </div>
+            </div>
+          </div>
+        </div>
+</section>
+
+
+<section class="py-3 bg-grad counter counter-small">
+		<div class="container">
+			<div class="row">
+				<!-- count item -->
+        <div class="col-md-3 col-6">
+          <div class="counter-item text-center">
+            <i class="fas fa-users fa-3x"></i>
+            <h2 class="counter-item-digit" data-from="0" data-to="<%=User.all.length%>" data-speed="3000" data-refresh-interval="10"><%=User.all.length%></h2>
+            <p class="counter-item-text">Nombre d'helper</p>
+        </div>
+      </div>
+        
+				<!-- count item -->
+        <div class="col-md-3 col-6">
+        <div class="counter-item text-center">
+          <i class="fas fa-scroll fa-3x"></i>
+          <h2 class="counter-item-digit" data-from="0" data-to="<%=Post.all.length%>" data-speed="3000" data-refresh-interval="10"><%=Post.all.length%></h2>
+          <p class="counter-item-text">Nombre d'annonces</p>
+        </div>
+      </div>
+        
+				<!-- count item -->
+				<div class="col-md-3 col-6">
+        <div class="counter-item text-center">
+          <i class="fas fa-hands-helping fa-3x"></i>
+          <h2 class="counter-item-digit" data-from="0" data-to="<%=Participation.all.length%>" data-speed="3000" data-refresh-interval="10"><%=Participation.all.length%></h2>
+          <p class="counter-item-text">Nombre de Coups de mains</p>
+        </div>
+      </div>
+
+				<!-- count item -->
+				<div class="col-md-3 col-6">
+        <div class="counter-item text-center">
+          <i class="fas fa-building fa-3x"></i>
+          <h2 class="counter-item-digit" data-from="0" data-to="<%=City.all.length%>" data-speed="3000" data-refresh-interval="10"><%=City.all.length%></h2>
+          <p class="counter-item-text">Nombre de villes </p>
+        </div>
+      </div>
+			</div>
+		</div>
+</section>
+
+<!--Searchbox-->
+  <h3 class="mt-3 ml-3">Rechercher une annonce</h3>
+  <div class="right-panel mt-3 ml-3">
+    <div class="row-xs-2" id="searchbox">
+    
+      <%= image_tag(("https://comhelp.s3.eu-west-3.amazonaws.com/comhelp/Logo/search-by-algolia-light-background.svg"))%>
+    </div>
+  </div>
+<!-- Fin Searchbox-->
+
+<div id="hits"></div>
+
+<!-- Notice-->
+<div class= "d-flex justify-content-around my-6 ">
+    <div class = "col-md-3 mt-30 ml-5">
+      <div class = "feature-box f-style-2 icon-grad h-100">
+        <div class = "feature-box-icon">
+          <i class="fas fa-pencil-alt"></i>
+          <h3>Tu t'inscris</h3>
+          <p></p>
+        </div>
+      </div>
+    </div>
+
+ 
+    <div class = "col-md-3 mt-30">
+      <div class = "feature-box f-style-2 icon-grad h-100">
+        <div class = "feature-box-icon">
+          <i class="fas fa-question"></i>
+          <h3>Tu demandes de l'aide</h3>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  
+ 
+    <div class = "col-md-3 mt-30">
+      <div class = "feature-box f-style-2 icon-grad h-100">
+        <div class = "feature-box-icon">
+          <i class="fas fa-people-carry"></i>
+          <h3>Tu reçois de l'aide</h3>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  
+</div>
+
+<h1 class="text-center text-secondary my-5">Nos catégories</h1>
+
+<div class="row">
+
+  <%@category.each do |category|%>
+      <ul class="mx-auto m-4 shadow px-5 list-unstyled" >
+					
+           
+            <li><i class= "fa fa-check text-primary pl-2"></i><%= link_to category.name, category_path(category.id), :class =>"text-dark pl-2"%></li>
+          
+      </ul>
+  <%end%>
+</div>
+
+<div class="bg-primary border-radius-3 py-3 all-text-white mt-5">
+<h2 class="alt-font p-2 p-sm-3 text-center">"Seuls, nous pouvons faire si peu ; ensemble, nous pouvons faire beaucoup" <span class="text-dark">Helen Keller</span></h2>
+</div>
+
+<h1 class="text-center my-5">
+<span class="text-secondary">Nos dernières annonces</span>
+</h1>
+
+<div class="row">
+  <%@post.where(is_validated:true).each do |post|%>
+    <div class="card mx-auto my-4 shadow" style="width: 25rem;">
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="card mb-4 shadow-sm">
+            <img class="card-img" src="<%=post.category.picture_url%>" alt="Card image cap">
+            <div class="card-body">
+                <span class="text-primary"><p class="card-text">Titre : <%=post.title %></p></span>
+                <p class="card-text">Ville : <%=post.city.city_name %></p>
+                <p class="card-text">Categorie : <%=post.category.name %></p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                  <% if user_signed_in? %>
+                    <%= link_to "Participer", new_post_participation_path(post),  :class => "btn btn-primary" %>
+                  <% else %>
+                    <%= link_to "Participer", new_user_session_path,  :class => "btn btn-primary" %>
+                  <%end%>
+                    <%= link_to "voir plus", post_path(post.id),  :class => "btn btn-outline-primary" %>
+                  </div>
+                </div>
+            </div>    
+          </div>
+        </div>
+      </div>      
+    </div>
+  <%end%>
+</div>
+
+
+
+

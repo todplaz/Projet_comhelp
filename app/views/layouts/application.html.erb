@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ComHelp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <%= stylesheet_link_tag 'application', media: 'all'%>
+    <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/reset-min.css" %>
+    <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/algolia-min.css" %>
+  </head>
+
+  <body>
+
+    <%= render 'layouts/navbar'%>
+    <%= render 'layouts/flash'%>
+    
+    <%= yield %>
+  </div>
+    <%= render 'layouts/footer'%>
+
+    <%= javascript_include_tag "https://kit.fontawesome.com/18f2e2cbfa.js" %>
+    <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js"%>
+    <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js" %>
+    <%= javascript_include_tag "https://polyfill.io/v3/polyfill.min.js?features=default%2CArray.prototype.find%2CArray.prototype.includes%2CPromise%2CObject.assign%2CObject.entries" %>
+    <%= javascript_include_tag 'application' %>
+
+  </body>
+</html>

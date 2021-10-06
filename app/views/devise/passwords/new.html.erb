@@ -1,0 +1,26 @@
+<section class = "p-4 height-700 parallax-bg" style="background-image: url(https://comhelp.s3.eu-west-3.amazonaws.com/comhelp/Front/sky.jpg)">
+    
+    <div class ="card border-primary mx-auto w-25 h-100 ">
+      <div class= "d-flex flex-column mt-4">
+        <div class="col-sm-5 mx-auto">
+            <img src="https://comhelp.s3.eu-west-3.amazonaws.com/comhelp/Logo/imageonline-co-transparentimage.jpg" alt="logo" class="img-responsive">
+          </div>
+
+      <h2 class ="text-center my-3"><%= "Mot de passe oublié" %></h2>
+      <div class="form mx-auto w-75">
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div class="field">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit 'Réinitialiser mon mot de passe' %>
+          </div>
+        <% end %>
+          <%= render "devise/shared/links" %>
+      </div>
+
+      

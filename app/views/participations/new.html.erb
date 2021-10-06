@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-body text-center">
+  <h2> Confirmer votre participation : </h2>
+        <%= form_tag post_participations_path(@post) do %>
+            <article>
+                <%= submit_tag "Confirmer", class: 'btn btn-outline-primary btn-sm'%>
+                <%= link_to "Revenir à l'accueil", root_path, class: 'btn btn-outline-info btn-sm', style: 'margin-right: 10px' %>
+            </article>
+        <% end %>
+
+        <%= image_tag("https://image.freepik.com/vecteurs-libre/illustration-concept-ok_114360-2060.jpg") %>
+
+    </div>
+</div>
